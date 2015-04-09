@@ -12,8 +12,6 @@ object Main {
       return
     }
 
-    println("// Hello swift, goodbye obj-c.")
-
     val file = args(0)
     val input = new ANTLRInputStream(new FileInputStream(file))
     val lexer = new ObjCLexer(input)
@@ -21,9 +19,11 @@ object Main {
     val parser = new ObjCParser(tokens)
 
     val root = parser.translation_unit()
-    val walker = new ParseTreeWalker()
-    val listener = new ObjC2SwiftConverter()
+    val converter = new ObjC2SwiftConverter()
 
-    walker.walk(listener, root)
+    println("// Hello Swift, Goodbye Obj-C.")
+    println("// converted from: " + file)
+    println()
+    println(converter.visit(root))
   }
 }
