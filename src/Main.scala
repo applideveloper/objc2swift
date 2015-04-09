@@ -7,16 +7,22 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker
  */
 object Main {
   def main(args: Array[String]) {
-    println("hello swift, goodbye obj-c.")
+    if(args.length == 0) {
+      println("error: no input file specified.")
+      return
+    }
 
-    val input = new ANTLRInputStream(new FileInputStream("sample/sample.h"))
+    println("// Hello swift, goodbye obj-c.")
+
+    val file = args(0)
+    val input = new ANTLRInputStream(new FileInputStream(file))
     val lexer = new ObjCLexer(input)
     val tokens = new CommonTokenStream(lexer)
     val parser = new ObjCParser(tokens)
-    val root = parser.translation_unit()
 
+    val root = parser.translation_unit()
     val walker = new ParseTreeWalker()
-    val listener = new MyObjCListener()
+    val listener = new ObjC2SwiftConverter()
 
     walker.walk(listener, root)
   }
