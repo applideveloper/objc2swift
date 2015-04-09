@@ -28,29 +28,6 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     return sb.toString
   }
 
-  /*
-  override def exitClass_interface(ctx: ObjCParser.Class_interfaceContext): Unit = {
-    val sb = new StringBuilder()
-
-    sb.append("class " + ctx.class_name.getText() + " ")
-    if(ctx.superclass_name() != null) {
-      sb.append(": " + ctx.superclass_name().getText)
-    }
-
-    if(ctx.protocol_reference_list() != null) {
-      val protocols = ctx.protocol_reference_list.getChild(1)
-      sb.append(", ")
-      sb.append(concatChildResults(protocols, ", "))
-    } else {
-      sb.append(" ")
-    }
-
-    sb.append("{\n")
-    sb.append(concatChildResults(ctx, "\n"))
-    sb.append("}")
-    setResult(ctx, sb.toString())
-  }
-*/
   override def visitTranslation_unit(ctx: ObjCParser.Translation_unitContext): String = {
     return concatChildResults(ctx, "\n")
   }
