@@ -232,6 +232,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitTranslation_unit(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitTranslation_unit(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Translation_unitContext translation_unit() throws RecognitionException {
@@ -314,6 +319,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitExternal_declaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitExternal_declaration(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -435,6 +445,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitPreprocessor_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitPreprocessor_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Preprocessor_declarationContext preprocessor_declaration() throws RecognitionException {
@@ -491,6 +506,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitClass_interface(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitClass_interface(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -586,6 +606,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitCategory_interface(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitCategory_interface(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Category_interfaceContext category_interface() throws RecognitionException {
@@ -679,6 +704,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitClass_implementation(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitClass_implementation(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Class_implementationContext class_implementation() throws RecognitionException {
@@ -760,6 +790,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitCategory_implementation(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitCategory_implementation(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Category_implementationContext category_implementation() throws RecognitionException {
@@ -829,6 +864,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProtocol_declaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProtocol_declaration(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -912,6 +952,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProtocol_declaration_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProtocol_declaration_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Protocol_declaration_listContext protocol_declaration_list() throws RecognitionException {
@@ -956,6 +1001,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitClass_declaration_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitClass_declaration_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1004,6 +1054,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitClass_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitClass_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1061,6 +1116,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProtocol_reference_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProtocol_reference_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Protocol_reference_listContext protocol_reference_list() throws RecognitionException {
@@ -1108,6 +1168,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProtocol_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProtocol_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1168,6 +1233,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProperty_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProperty_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Property_declarationContext property_declaration() throws RecognitionException {
@@ -1219,6 +1289,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProperty_attributes_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProperty_attributes_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Property_attributes_declarationContext property_attributes_declaration() throws RecognitionException {
@@ -1264,6 +1339,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProperty_attributes_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProperty_attributes_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1318,6 +1398,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProperty_attribute(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProperty_attribute(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1442,6 +1527,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitClass_name(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitClass_name(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Class_nameContext class_name() throws RecognitionException {
@@ -1478,6 +1568,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitSuperclass_name(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitSuperclass_name(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1516,6 +1611,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitCategory_name(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitCategory_name(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Category_nameContext category_name() throws RecognitionException {
@@ -1552,6 +1652,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProtocol_name(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProtocol_name(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1600,6 +1705,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInstance_variables(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInstance_variables(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1736,6 +1846,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitVisibility_specification(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitVisibility_specification(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Visibility_specificationContext visibility_specification() throws RecognitionException {
@@ -1801,6 +1916,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInterface_declaration_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInterface_declaration_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1915,6 +2035,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitClass_method_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitClass_method_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Class_method_declarationContext class_method_declaration() throws RecognitionException {
@@ -1957,6 +2082,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInstance_method_declaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInstance_method_declaration(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2003,6 +2133,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitMethod_declaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitMethod_declaration(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2081,6 +2216,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitImplementation_definition_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitImplementation_definition_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2163,6 +2303,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitClass_method_definition(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitClass_method_definition(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Class_method_definitionContext class_method_definition() throws RecognitionException {
@@ -2205,6 +2350,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInstance_method_definition(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInstance_method_definition(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2257,6 +2407,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitMethod_definition(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitMethod_definition(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2335,6 +2490,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitMethod_selector(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitMethod_selector(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2424,6 +2584,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitKeyword_declarator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitKeyword_declarator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Keyword_declaratorContext keyword_declarator() throws RecognitionException {
@@ -2487,6 +2652,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitSelector(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitSelector(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SelectorContext selector() throws RecognitionException {
@@ -2525,6 +2695,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitMethod_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitMethod_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2568,6 +2743,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProperty_implementation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProperty_implementation(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2633,6 +2813,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProperty_synthesize_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProperty_synthesize_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Property_synthesize_listContext property_synthesize_list() throws RecognitionException {
@@ -2689,6 +2874,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProperty_synthesize_item(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProperty_synthesize_item(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2750,6 +2940,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitBlock_type(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitBlock_type(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2827,6 +3022,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitType_specifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitType_specifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2995,6 +3195,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitType_qualifier(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitType_qualifier(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Type_qualifierContext type_qualifier() throws RecognitionException {
@@ -3056,6 +3261,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProtocol_qualifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProtocol_qualifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3130,6 +3340,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitPrimary_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitPrimary_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3275,6 +3490,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDictionary_pair(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDictionary_pair(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Dictionary_pairContext dictionary_pair() throws RecognitionException {
@@ -3320,6 +3540,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDictionary_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDictionary_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3405,6 +3630,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitArray_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitArray_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Array_expressionContext array_expression() throws RecognitionException {
@@ -3489,6 +3719,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitBox_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitBox_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Box_expressionContext box_expression() throws RecognitionException {
@@ -3550,6 +3785,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitBlock_parameters(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitBlock_parameters(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3630,6 +3870,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitBlock_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitBlock_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Block_expressionContext block_expression() throws RecognitionException {
@@ -3693,6 +3938,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitMessage_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitMessage_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Message_expressionContext message_expression() throws RecognitionException {
@@ -3740,6 +3990,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitReceiver(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitReceiver(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3804,6 +4059,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitMessage_selector(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitMessage_selector(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3872,6 +4132,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitKeyword_argument(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitKeyword_argument(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Keyword_argumentContext keyword_argument() throws RecognitionException {
@@ -3923,6 +4188,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitSelector_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitSelector_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Selector_expressionContext selector_expression() throws RecognitionException {
@@ -3970,6 +4240,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitSelector_name(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitSelector_name(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4044,6 +4319,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitProtocol_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitProtocol_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Protocol_expressionContext protocol_expression() throws RecognitionException {
@@ -4088,6 +4368,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitEncode_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitEncode_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4137,6 +4422,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitType_variable_declarator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitType_variable_declarator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Type_variable_declaratorContext type_variable_declarator() throws RecognitionException {
@@ -4177,6 +4467,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitTry_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitTry_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4221,6 +4516,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitCatch_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitCatch_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4269,6 +4569,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitFinally_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitFinally_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Finally_statementContext finally_statement() throws RecognitionException {
@@ -4307,6 +4612,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitThrow_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitThrow_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4361,6 +4671,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitTry_block(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitTry_block(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4428,6 +4743,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitSynchronized_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitSynchronized_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Synchronized_statementContext synchronized_statement() throws RecognitionException {
@@ -4475,6 +4795,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitAutorelease_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitAutorelease_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Autorelease_statementContext autorelease_statement() throws RecognitionException {
@@ -4521,6 +4846,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitFunction_definition(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitFunction_definition(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4574,6 +4904,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDeclaration(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4646,6 +4981,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDeclaration_specifiers(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDeclaration_specifiers(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4754,6 +5094,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitArc_behaviour_specifier(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitArc_behaviour_specifier(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Arc_behaviour_specifierContext arc_behaviour_specifier() throws RecognitionException {
@@ -4795,6 +5140,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitStorage_class_specifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitStorage_class_specifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4843,6 +5193,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInit_declarator_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInit_declarator_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4903,6 +5258,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInit_declarator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInit_declarator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Init_declaratorContext init_declarator() throws RecognitionException {
@@ -4957,6 +5317,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitStruct_or_union_specifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitStruct_or_union_specifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5046,6 +5411,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitStruct_declaration(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitStruct_declaration(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Struct_declarationContext struct_declaration() throws RecognitionException {
@@ -5103,6 +5473,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitSpecifier_qualifier_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitSpecifier_qualifier_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5207,6 +5582,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitStruct_declarator_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitStruct_declarator_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Struct_declarator_listContext struct_declarator_list() throws RecognitionException {
@@ -5265,6 +5645,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitStruct_declarator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitStruct_declarator(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5334,6 +5719,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitEnum_specifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitEnum_specifier(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5476,6 +5866,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitEnumerator_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitEnumerator_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Enumerator_listContext enumerator_list() throws RecognitionException {
@@ -5547,6 +5942,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitEnumerator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitEnumerator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final EnumeratorContext enumerator() throws RecognitionException {
@@ -5600,6 +6000,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitPointer(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitPointer(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5676,6 +6081,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDeclarator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDeclarator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DeclaratorContext declarator() throws RecognitionException {
@@ -5736,6 +6146,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDirect_declarator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDirect_declarator(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -5851,6 +6266,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDeclarator_suffix(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDeclarator_suffix(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Declarator_suffixContext declarator_suffix() throws RecognitionException {
@@ -5927,6 +6347,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitParameter_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitParameter_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Parameter_listContext parameter_list() throws RecognitionException {
@@ -5983,6 +6408,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitParameter_declaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitParameter_declaration(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -6050,6 +6480,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInitializer(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInitializer(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -6166,6 +6601,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitType_name(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitType_name(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Type_nameContext type_name() throws RecognitionException {
@@ -6233,6 +6673,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitAbstract_declarator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitAbstract_declarator(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -6351,6 +6796,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitAbstract_declarator_suffix(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitAbstract_declarator_suffix(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Abstract_declarator_suffixContext abstract_declarator_suffix() throws RecognitionException {
@@ -6430,6 +6880,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitParameter_declaration_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitParameter_declaration_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Parameter_declaration_listContext parameter_declaration_list() throws RecognitionException {
@@ -6490,6 +6945,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitStatement_list(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitStatement_list(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -6572,6 +7032,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitStatement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -6688,6 +7153,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitLabeled_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitLabeled_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Labeled_statementContext labeled_statement() throws RecognitionException {
@@ -6771,6 +7241,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitCompound_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitCompound_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Compound_statementContext compound_statement() throws RecognitionException {
@@ -6843,6 +7318,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitSelection_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitSelection_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -6930,6 +7410,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitFor_in_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitFor_in_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final For_in_statementContext for_in_statement() throws RecognitionException {
@@ -7000,6 +7485,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitFor_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitFor_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7091,6 +7581,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitWhile_statement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitWhile_statement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final While_statementContext while_statement() throws RecognitionException {
@@ -7140,6 +7635,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitDo_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitDo_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7200,6 +7700,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitIteration_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitIteration_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7268,6 +7773,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitJump_statement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitJump_statement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7359,6 +7869,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitExpression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitExpression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -7424,6 +7939,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitAssignment_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitAssignment_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Assignment_expressionContext assignment_expression() throws RecognitionException {
@@ -7476,6 +7996,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitAssignment_operator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitAssignment_operator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Assignment_operatorContext assignment_operator() throws RecognitionException {
@@ -7526,6 +8051,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitConditional_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitConditional_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7582,6 +8112,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitConstant_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitConstant_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Constant_expressionContext constant_expression() throws RecognitionException {
@@ -7623,6 +8158,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitLogical_or_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitLogical_or_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7683,6 +8223,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitLogical_and_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitLogical_and_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Logical_and_expressionContext logical_and_expression() throws RecognitionException {
@@ -7741,6 +8286,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitInclusive_or_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitInclusive_or_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7801,6 +8351,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitExclusive_or_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitExclusive_or_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Exclusive_or_expressionContext exclusive_or_expression() throws RecognitionException {
@@ -7860,6 +8415,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitAnd_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitAnd_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final And_expressionContext and_expression() throws RecognitionException {
@@ -7918,6 +8478,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitEquality_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitEquality_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -7983,6 +8548,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitRelational_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitRelational_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Relational_expressionContext relational_expression() throws RecognitionException {
@@ -8046,6 +8616,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitShift_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitShift_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -8111,6 +8686,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitAdditive_expression(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitAdditive_expression(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Additive_expressionContext additive_expression() throws RecognitionException {
@@ -8174,6 +8754,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitMultiplicative_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitMultiplicative_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -8241,6 +8826,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitCast_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitCast_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -8310,6 +8900,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitUnary_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitUnary_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -8426,6 +9021,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitUnary_operator(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitUnary_operator(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Unary_operatorContext unary_operator() throws RecognitionException {
@@ -8488,6 +9088,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitPostfix_expression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitPostfix_expression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -8602,6 +9207,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitArgument_expression_list(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitArgument_expression_list(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Argument_expression_listContext argument_expression_list() throws RecognitionException {
@@ -8656,6 +9266,11 @@ public class ObjCParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitIdentifier(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitIdentifier(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final IdentifierContext identifier() throws RecognitionException {
@@ -8696,6 +9311,11 @@ public class ObjCParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ObjCListener ) ((ObjCListener)listener).exitConstant(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ObjCVisitor ) return ((ObjCVisitor<? extends T>)visitor).visitConstant(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
