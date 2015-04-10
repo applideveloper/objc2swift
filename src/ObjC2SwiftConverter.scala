@@ -46,7 +46,7 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     }
     if(ctx.protocol_reference_list() != null) {
       val protocols = ctx.protocol_reference_list().protocol_list().children.filter(_.isInstanceOf[ObjCParser.Protocol_nameContext])
-      sb.append(protocols.map(_.getText).fold("")(_ + ", " + _))
+      sb.append(protocols.foldLeft("")(_ + ", " + _.getText))
     }
 
     sb.append(" {\n")
