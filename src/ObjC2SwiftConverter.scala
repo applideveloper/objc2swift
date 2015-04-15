@@ -1,11 +1,17 @@
+/**
+ * This file is part of objc2swift. 
+ * https://github.com/yahoojapan/objc2swift
+ * 
+ * Copyright (c) 2015 Yahoo Japan Corporation
+ * 
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import ObjCParser._
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.{ParseTree, ParseTreeProperty}
 import collection.JavaConversions._
-
-/**
- * Created by takesano on 15/03/23.
- */
 
 class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
   val properties = new ParseTreeProperty[String]()

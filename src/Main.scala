@@ -1,10 +1,17 @@
+/**
+ * This file is part of objc2swift. 
+ * https://github.com/yahoojapan/objc2swift
+ * 
+ * Copyright (c) 2015 Yahoo Japan Corporation
+ * 
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 import java.io.FileInputStream
 import org.antlr.v4.runtime._
 import org.antlr.v4.runtime.tree.ParseTreeWalker
 
-/**
- * Created by takesano on 15/03/23.
- */
 object Main {
   def main(args: Array[String]) {
     if(args.length == 0) {
