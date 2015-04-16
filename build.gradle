@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+
+sourceCompatibility = 1.6
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    scalaVersion = '2.11'
+    scalaVersionRevision = '6'
+}
+
+dependencies {
+    compile "org.scala-lang:scala-compiler:$scalaVersion.$scalaVersionRevision"
+    compile "org.scala-lang:scala-library:$scalaVersion.$scalaVersionRevision"
+    compile "org.scala-lang:scala-reflect:$scalaVersion.$scalaVersionRevision"
+
+    compile 'org.antlr:antlr4-runtime:4.5'
+    compile 'org.antlr:ST4:4.0.8'
+}
