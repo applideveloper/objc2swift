@@ -5,3 +5,7 @@
 - (void)hoge;
 
 @end
+
+@interface A(Category)<Protocol3>
+
+@end
