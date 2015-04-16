@@ -52,7 +52,19 @@ $ grun ObjC translation_unit ../../../sample/sample.h -gui
 
 See [Getting Started with ANTLR v4](https://theantlrguy.atlassian.net/wiki/display/ANTLR4/Getting+Started+with+ANTLR+v4) for more detail.
 
-### 2. Project Structure
+### 2. Project Setup
+
+Import Project from gradle build file:
+
+![ss2.png](doc/ss2.png)
+
+Create new Run Configuration as below:
+
+![ss3.png](doc/ss3.png)
+
+and Run!
+
+### 3. Project Structure
 
 coming soon...
 
