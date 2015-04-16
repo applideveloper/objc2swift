@@ -34,6 +34,29 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     return sb.toString
   }
 
+  def convertParameter(sb: StringBuilder, ctx: ObjCParser.Keyword_declaratorContext): StringBuilder = {
+
+    // Parameter name.
+    sb.append(ctx.IDENTIFIER())
+
+    // Parameter type.
+    if (ctx.method_type() == null) {
+
+      // Type is not specified.
+      sb.append(": AnyObject")
+
+    } else {
+
+      val param_type: ObjCParser.Method_typeContext = ctx.method_type(0)
+      val objCType: String = param_type.type_name().getText
+
+      // TODO: Convert to Swift's Type
+      sb.append(": " + objCType)
+
+    }
+
+  }
+
   override def visitTranslation_unit(ctx: ObjCParser.Translation_unitContext): String = {
     return concatChildResults(ctx, "\n")
   }
@@ -67,4 +90,65 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
 
     return sb.toString()
   }
+
+  override def visitInterface_declaration_list(ctx: ObjCParser.Interface_declaration_listContext): String = {
+    concatChildResults(ctx, "\n")
+  }
+
+  override def visitInstance_method_declaration(ctx: ObjCParser.Instance_method_declarationContext): String = {
+
+    val sb = new StringBuilder()
+
+    sb.append("    func ")
+
+    val method_declaration_ctx: ObjCParser.Method_declarationContext = ctx.method_declaration()
+
+    //
+    // Method name.
+    //
+    val method_selector_ctx: ObjCParser.Method_selectorContext = method_declaration_ctx.method_selector()
+
+    if (method_selector_ctx.selector() != null) {
+
+      // No parameter.
+      sb.append(method_selector_ctx.selector().getText + "()")
+
+    } else {
+
+      val keyword_declarator_ctx_first: ObjCParser.Keyword_declaratorContext = method_selector_ctx.keyword_declarator(0)
+      if (keyword_declarator_ctx_first.selector() == null) {
+        // Syntax error: No method name.
+      } else {
+        sb.append(keyword_declarator_ctx_first.selector().getText)
+      }
+
+      sb.append("(")
+
+      //
+      // Parameters.
+      //
+      method_selector_ctx.keyword_declarator().zipWithIndex.foreach {
+        case (ctx: ObjCParser.Keyword_declaratorContext, i) if i == 0 => convertParameter(sb, ctx)
+        case (ctx: ObjCParser.Keyword_declaratorContext, i) if i != 0 => convertParameter(sb.append(", "), ctx)
+      }
+
+      sb.append(")")
+
+    }
+
+    //
+    // Method type.
+    //
+    val type_name: ObjCParser.Type_nameContext = method_declaration_ctx.method_type().type_name()
+    if (type_name.getText != "void") {
+      // TODO: Add retval type.
+    }
+
+    sb.append(" {\n")
+    sb.append("    }")
+
+    sb.toString()
+
+  }
+
 }
