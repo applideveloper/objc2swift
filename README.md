@@ -59,6 +59,10 @@ See [Getting Started with ANTLR v4](https://theantlrguy.atlassian.net/wiki/displ
 Pass `sample/sample.h` as the program argument, and run!
 
 ```
+$ java -jar build/libs/objc2swift-1.0.jar sample/sample.h
+```
+
+```
 class A : NSObject {
 }
 ```
