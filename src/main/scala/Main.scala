@@ -39,21 +39,31 @@ object Main {
   }
 
   def output(result: String, files: Array[String], options: Map[String, Boolean], parser: Parser, root: ParserRuleContext) {
-    println("// Hello Swift, Goodbye Obj-C.")
-    println("// converted from: " + files.mkString(", "))
+    println("/* Hello Swift, Goodbye Obj-C.")
+    println(" * converted by 'objc2swift' https://github.com/yahoojapan/objc2swift")
+    println(" *")
+    println(" * source: " + files.mkString(", "))
 
     if(options("tree") == true) {
-      println("/*");
+      println(" * source-tree:")
       (new ParseTreeWalker()).walk(new ObjCBaseListener() {
         override def enterEveryRule(ctx: ParserRuleContext): Unit = {
           print(" *" + "  " * ctx.depth)
-          println(parser.getRuleNames()(ctx.getRuleIndex) + " " + ctx.getStart + " " + ctx.getStop)
+          print(parser.getRuleNames()(ctx.getRuleIndex) + ": ")
+          print("'" + ctx.getStart.getText.replace("\n\r\t", " ") + "'")
+          if(ctx.getStart != ctx.getStop){
+            print(" - " + "'" + ctx.getStop.getText.replace("\n\r\t", " ") + "'")
+          }
+          println()
+          // 		return "[@"+getTokenIndex()+","+start+":"+stop+"='"+txt+"',<"+type+">"+channelStr+","+line+":"+getCharPositionInLine()+"]";
+
         }
       }, root)
-      println(" */")
     }
 
+    println(" */")
     println()
+
     println(result)
   }
 }
