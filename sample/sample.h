@@ -6,5 +6,6 @@
 - (void)acceptOneParam:(int)n1;
 - (void)acceptTwoParams:(int)n1 opt2:(int)n2;
 - (void)acceptThreeParams:(int)n1 opt2:(int)n2 opt3:(int)n3;
+- (int)retIntMethod1;
 
 @end

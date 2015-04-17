@@ -122,16 +122,14 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
         sb.append(keyword_declarator_ctx_first.selector().getText)
       }
 
-      sb.append("(")
-
       //
       // Parameters.
       //
+      sb.append("(")
       method_selector_ctx.keyword_declarator().zipWithIndex.foreach {
         case (ctx: ObjCParser.Keyword_declaratorContext, i) if i == 0 => convertParameter(sb, ctx)
         case (ctx: ObjCParser.Keyword_declaratorContext, i) if i != 0 => convertParameter(sb.append(", "), ctx)
       }
-
       sb.append(")")
 
     }
@@ -142,6 +140,18 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     val type_name: ObjCParser.Type_nameContext = method_declaration_ctx.method_type().type_name()
     if (type_name.getText != "void") {
       // TODO: Add retval type.
+      val specifier_qualifier_list_ctx: ObjCParser.Specifier_qualifier_listContext = type_name.specifier_qualifier_list()
+      if (specifier_qualifier_list_ctx.type_specifier() != null) {
+        val type_specifiers: collection.mutable.Buffer[ObjCParser.Type_specifierContext] = specifier_qualifier_list_ctx.type_specifier()
+        for (type_specifier <- type_specifiers) {
+          // TODO: Convert to Swift's Type
+          val swift_type: String = type_specifier.getText match {
+            case "int" => "Int"
+            case _ => ""
+          }
+          sb.append(" -> " + swift_type)
+        }
+      }
     }
 
     sb.append(" {\n")
