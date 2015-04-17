@@ -34,6 +34,33 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     return sb.toString
   }
 
+  //
+  // TODO: Convert to Swift's Type
+  //
+  // Supported type:
+  //   id           => AnyObject
+  //   (signed) int => Int
+  //   unsigned int => UInt
+  //
+  def convertTypeName(ctx: ObjCParser.Type_nameContext): String = {
+    val defaultType = "AnyObject"
+    Option(ctx.specifier_qualifier_list().type_specifier()) match {
+      case None => defaultType
+      case Some(contexts) =>
+        val type_specifier_ctxs: collection.mutable.Buffer[ObjCParser.Type_specifierContext] = contexts
+        type_specifier_ctxs.foldLeft(defaultType)((type_str, context) => {
+          context.getText match {
+            case "id" => defaultType
+            case "void" => ""
+            case "unsigned" => "unsigned"
+            case "int" if type_str == "unsigned" => "UInt"
+            case "int" => "Int"
+            case _ => type_str
+          }
+        })
+    }
+  }
+
   def convertParameter(sb: StringBuilder, ctx: ObjCParser.Keyword_declaratorContext): StringBuilder = {
     // Parameter name.
     sb.append(ctx.IDENTIFIER() + ": ")
@@ -43,9 +70,9 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
       case None => "AnyObject" // Type is not specified.
       case Some(contexts) =>
         // TODO: Convert to Swift's Type
-        contexts.get(0).type_name().getText match {
-          case "int" => "Int"
-          case _     => "AnyObject"
+        convertTypeName(contexts.get(0).type_name) match {
+          case s if s != "" => s
+          case _ => "" // Syntax error?
         }
     })
   }
@@ -158,26 +185,9 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     //
     val type_name_ctx: ObjCParser.Type_nameContext = method_declaration_ctx.method_type().type_name()
 
-    type_name_ctx.getText match {
-      case "void" => // No return type
-      case _      =>
-        Option(type_name_ctx.specifier_qualifier_list().type_specifier()) match {
-          case None =>
-          case Some(contexts) =>
-            val type_specifier_ctxs: collection.mutable.Buffer[ObjCParser.Type_specifierContext] = contexts
-
-            type_specifier_ctxs.foldLeft("")((s, c) => {
-              c.getText match {
-                case "unsigned" => "unsigned"
-                case "int" if s == "unsigned" => "UInt"
-                case "int" => "Int"
-                case _ => s
-              }
-            }) match {
-              case s if s != "" => sb.append(" -> " + s)
-              case _ =>
-            }
-        }
+    convertTypeName(type_name_ctx) match {
+      case s if s != "" => sb.append(" -> " + s)
+      case _ => // No return type
     }
 
     sb.append(" {\n")
