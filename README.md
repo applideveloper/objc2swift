@@ -4,11 +4,7 @@
 
 The software is based on [ANTLR](http://www.antlr.org) the magnificent parser generator.
 
-## Features
-* converts `@interface Hoge` to `class Hoge {}`
-* ... that's all for now!
-
-## Usage
+## Quick Start
 
 Build the project, run the jar with an input Obj-C source file.
 
@@ -32,6 +28,10 @@ class A : NSObject {
 
 }
 ```
+
+## Features
+* converts `@interface Hoge` to `class Hoge {}`
+* ... that's all for now!
 
 ## Developer's Guide
 
