@@ -51,7 +51,11 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
       val objCType: String = param_type.type_name().getText
 
       // TODO: Convert to Swift's Type
-      sb.append(": " + objCType)
+      val swType: String = objCType match {
+        case "int" => "Int"
+        case _     => objCType
+      }
+      sb.append(": " + swType)
 
     }
 
