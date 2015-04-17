@@ -10,6 +10,7 @@
 
 import java.io.{SequenceInputStream, FileInputStream}
 import org.antlr.v4.runtime._
+import org.antlr.v4.runtime.tree.ParseTreeWalker
 import collection.JavaConversions._
 
 object Main {
@@ -18,6 +19,8 @@ object Main {
       println("error: no input file specified.")
       return
     }
+
+    val options = Map("tree" -> args.contains("-t"))
 
     val files = args.filter(!_.startsWith("-"))
     val fileStreams = files.map(new FileInputStream(_))
@@ -30,10 +33,27 @@ object Main {
 
     val root = parser.translation_unit()
     val converter = new ObjC2SwiftConverter()
+    val result = converter.visit(root)
 
+    output(result, files, options, parser, root)
+  }
+
+  def output(result: String, files: Array[String], options: Map[String, Boolean], parser: Parser, root: ParserRuleContext) {
     println("// Hello Swift, Goodbye Obj-C.")
     println("// converted from: " + files.mkString(", "))
+
+    if(options("tree") == true) {
+      println("/*");
+      (new ParseTreeWalker()).walk(new ObjCBaseListener() {
+        override def enterEveryRule(ctx: ParserRuleContext): Unit = {
+          print(" *" + "  " * ctx.depth)
+          println(parser.getRuleNames()(ctx.getRuleIndex) + " " + ctx.getStart + " " + ctx.getStop)
+        }
+      }, root)
+      println(" */")
+    }
+
     println()
-    println(converter.visit(root))
+    println(result)
   }
 }
