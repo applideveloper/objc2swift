@@ -34,6 +34,49 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     return sb.toString
   }
 
+  //
+  // TODO: Convert to Swift's Type
+  //
+  // Supported type:
+  //   id           => AnyObject
+  //   (signed) int => Int
+  //   unsigned int => UInt
+  //
+  def convertTypeName(ctx: ObjCParser.Type_nameContext): String = {
+    val defaultType = "AnyObject"
+    Option(ctx.specifier_qualifier_list().type_specifier()) match {
+      case None => defaultType
+      case Some(contexts) =>
+        val type_specifier_ctxs: collection.mutable.Buffer[ObjCParser.Type_specifierContext] = contexts
+        type_specifier_ctxs.foldLeft(defaultType)((type_str, context) => {
+          context.getText match {
+            case "id" => defaultType
+            case "void" => ""
+            case "unsigned" => "unsigned"
+            case "int" if type_str == "unsigned" => "UInt"
+            case "int" => "Int"
+            case _ => type_str
+          }
+        })
+    }
+  }
+
+  def convertParameter(sb: StringBuilder, ctx: ObjCParser.Keyword_declaratorContext): StringBuilder = {
+    // Parameter name.
+    sb.append(ctx.IDENTIFIER() + ": ")
+
+    // Parameter type.
+    sb.append(Option(ctx.method_type()) match {
+      case None => "AnyObject" // Type is not specified.
+      case Some(contexts) =>
+        // TODO: Convert to Swift's Type
+        convertTypeName(contexts.get(0).type_name) match {
+          case s if s != "" => s
+          case _ => "" // Syntax error?
+        }
+    })
+  }
+
   override def visitTranslation_unit(ctx: ObjCParser.Translation_unitContext): String = {
     return concatChildResults(ctx, "\n")
   }
@@ -97,4 +140,66 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
 
     return sb.toString()
   }
+
+  override def visitInterface_declaration_list(ctx: ObjCParser.Interface_declaration_listContext): String = {
+    concatChildResults(ctx, "\n")
+  }
+
+  override def visitInstance_method_declaration(ctx: ObjCParser.Instance_method_declarationContext): String = {
+
+    val sb = new StringBuilder()
+
+    sb.append("    func ")
+
+    val method_declaration_ctx: ObjCParser.Method_declarationContext = ctx.method_declaration()
+
+    //
+    // Method name.
+    //
+    val method_selector_ctx: ObjCParser.Method_selectorContext = method_declaration_ctx.method_selector()
+
+    Option(method_selector_ctx.selector()) match {
+      case Some(c) => sb.append(c.getText + "()") // No parameter.
+      case None    =>
+        Option(method_selector_ctx.keyword_declarator(0).selector()) match {
+          case None => // Syntax error? No method name.
+          case Some(c) =>
+            // Has parameters.
+            sb.append(c.getText + "(")
+            method_selector_ctx.keyword_declarator().zipWithIndex.foreach {
+              case (c: ObjCParser.Keyword_declaratorContext, 0) => convertParameter(sb, c)
+              case (c: ObjCParser.Keyword_declaratorContext, i) => convertParameter(sb.append(", "), c)
+            }
+            sb.append(")")
+        }
+    }
+
+    //
+    // Method type.
+    //
+    // TODO: Convert to Swift's Type
+    //
+    // Supported type:
+    //   (signed) int => Int
+    //   unsigned int => UInt
+    //
+    val type_name_ctx: ObjCParser.Type_nameContext = method_declaration_ctx.method_type().type_name()
+
+    convertTypeName(type_name_ctx) match {
+      case s if s != "" => sb.append(" -> " + s)
+      case _ => // No return type
+    }
+
+    sb.append(" {\n")
+
+    //
+    // TODO: Implement method's body
+    //
+
+    sb.append("    }")
+
+    sb.toString()
+
+  }
+
 }
