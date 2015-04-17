@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import java.io.FileInputStream
+import java.io.{SequenceInputStream, FileInputStream}
 import org.antlr.v4.runtime._
 import org.antlr.v4.runtime.tree.ParseTreeWalker
+import collection.JavaConversions._
 
 object Main {
   def main(args: Array[String]) {
@@ -19,18 +20,40 @@ object Main {
       return
     }
 
-    val file = args(0)
-    val input = new ANTLRInputStream(new FileInputStream(file))
+    val options = Map("tree" -> args.contains("-t"))
+
+    val files = args.filter(!_.startsWith("-"))
+    val fileStreams = files.map(new FileInputStream(_))
+    val stream = new SequenceInputStream(fileStreams.toIterator)
+    val input = new ANTLRInputStream(stream)
+
     val lexer = new ObjCLexer(input)
     val tokens = new CommonTokenStream(lexer)
     val parser = new ObjCParser(tokens)
 
     val root = parser.translation_unit()
     val converter = new ObjC2SwiftConverter()
+    val result = converter.visit(root)
 
+    output(result, files, options, parser, root)
+  }
+
+  def output(result: String, files: Array[String], options: Map[String, Boolean], parser: Parser, root: ParserRuleContext) {
     println("// Hello Swift, Goodbye Obj-C.")
-    println("// converted from: " + file)
+    println("// converted from: " + files.mkString(", "))
+
+    if(options("tree") == true) {
+      println("/*");
+      (new ParseTreeWalker()).walk(new ObjCBaseListener() {
+        override def enterEveryRule(ctx: ParserRuleContext): Unit = {
+          print(" *" + "  " * ctx.depth)
+          println(parser.getRuleNames()(ctx.getRuleIndex) + " " + ctx.getStart + " " + ctx.getStop)
+        }
+      }, root)
+      println(" */")
+    }
+
     println()
-    println(converter.visit(root))
+    println(result)
   }
 }
