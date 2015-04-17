@@ -35,30 +35,19 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
   }
 
   def convertParameter(sb: StringBuilder, ctx: ObjCParser.Keyword_declaratorContext): StringBuilder = {
-
     // Parameter name.
-    sb.append(ctx.IDENTIFIER())
+    sb.append(ctx.IDENTIFIER() + ": ")
 
     // Parameter type.
-    if (ctx.method_type() == null) {
-
-      // Type is not specified.
-      sb.append(": AnyObject")
-
-    } else {
-
-      val param_type: ObjCParser.Method_typeContext = ctx.method_type(0)
-      val objCType: String = param_type.type_name().getText
-
-      // TODO: Convert to Swift's Type
-      val swType: String = objCType match {
-        case "int" => "Int"
-        case _     => objCType
-      }
-      sb.append(": " + swType)
-
-    }
-
+    sb.append(Option(ctx.method_type()) match {
+      case None => "AnyObject" // Type is not specified.
+      case Some(contexts) =>
+        // TODO: Convert to Swift's Type
+        contexts.get(0).type_name().getText match {
+          case "int" => "Int"
+          case _     => "AnyObject"
+        }
+    })
   }
 
   override def visitTranslation_unit(ctx: ObjCParser.Translation_unitContext): String = {
@@ -142,53 +131,61 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     //
     val method_selector_ctx: ObjCParser.Method_selectorContext = method_declaration_ctx.method_selector()
 
-    if (method_selector_ctx.selector() != null) {
-
-      // No parameter.
-      sb.append(method_selector_ctx.selector().getText + "()")
-
-    } else {
-
-      val keyword_declarator_ctx_first: ObjCParser.Keyword_declaratorContext = method_selector_ctx.keyword_declarator(0)
-      if (keyword_declarator_ctx_first.selector() == null) {
-        // Syntax error: No method name.
-      } else {
-        sb.append(keyword_declarator_ctx_first.selector().getText)
-      }
-
-      //
-      // Parameters.
-      //
-      sb.append("(")
-      method_selector_ctx.keyword_declarator().zipWithIndex.foreach {
-        case (ctx: ObjCParser.Keyword_declaratorContext, i) if i == 0 => convertParameter(sb, ctx)
-        case (ctx: ObjCParser.Keyword_declaratorContext, i) if i != 0 => convertParameter(sb.append(", "), ctx)
-      }
-      sb.append(")")
-
+    Option(method_selector_ctx.selector()) match {
+      case Some(c) => sb.append(c.getText + "()") // No parameter.
+      case None    =>
+        Option(method_selector_ctx.keyword_declarator(0).selector()) match {
+          case None => // Syntax error? No method name.
+          case Some(c) =>
+            // Has parameters.
+            sb.append(c.getText + "(")
+            method_selector_ctx.keyword_declarator().zipWithIndex.foreach {
+              case (c: ObjCParser.Keyword_declaratorContext, 0) => convertParameter(sb, c)
+              case (c: ObjCParser.Keyword_declaratorContext, i) => convertParameter(sb.append(", "), c)
+            }
+            sb.append(")")
+        }
     }
 
     //
     // Method type.
     //
-    val type_name: ObjCParser.Type_nameContext = method_declaration_ctx.method_type().type_name()
-    if (type_name.getText != "void") {
-      // TODO: Add retval type.
-      val specifier_qualifier_list_ctx: ObjCParser.Specifier_qualifier_listContext = type_name.specifier_qualifier_list()
-      if (specifier_qualifier_list_ctx.type_specifier() != null) {
-        val type_specifiers: collection.mutable.Buffer[ObjCParser.Type_specifierContext] = specifier_qualifier_list_ctx.type_specifier()
-        for (type_specifier <- type_specifiers) {
-          // TODO: Convert to Swift's Type
-          val swift_type: String = type_specifier.getText match {
-            case "int" => "Int"
-            case _ => ""
-          }
-          sb.append(" -> " + swift_type)
+    // TODO: Convert to Swift's Type
+    //
+    // Supported type:
+    //   (signed) int => Int
+    //   unsigned int => UInt
+    //
+    val type_name_ctx: ObjCParser.Type_nameContext = method_declaration_ctx.method_type().type_name()
+
+    type_name_ctx.getText match {
+      case "void" => // No return type
+      case _      =>
+        Option(type_name_ctx.specifier_qualifier_list().type_specifier()) match {
+          case None =>
+          case Some(contexts) =>
+            val type_specifier_ctxs: collection.mutable.Buffer[ObjCParser.Type_specifierContext] = contexts
+
+            type_specifier_ctxs.foldLeft("")((s, c) => {
+              c.getText match {
+                case "unsigned" => "unsigned"
+                case "int" if s == "unsigned" => "UInt"
+                case "int" => "Int"
+                case _ => s
+              }
+            }) match {
+              case s if s != "" => sb.append(" -> " + s)
+              case _ =>
+            }
         }
-      }
     }
 
     sb.append(" {\n")
+
+    //
+    // TODO: Implement method's body
+    //
+
     sb.append("    }")
 
     sb.toString()
