@@ -49,31 +49,41 @@ Create new Run Configuration as below:
 
 coming soon...
 
-### 3. Visualizing Parse Tree
+### 3. Printing the Parse Tree
 
-Install ANTLR v4, set classpath and aliases:
-
-```
-$ cd /usr/local/lib
-$ curl -O http://www.antlr.org/download/antlr-4.5-complete.jar
-```
+With the `-t` option, the parse tree of the input source will be printed. You can use this to find the name and the containing text for each node.
 
 ```
-$ export CLASSPATH=".:/usr/local/lib/antlr-4.5-complete.jar:$CLASSPATH"
-$ alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.5-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
-$ alias grun='java org.antlr.v4.runtime.misc.TestRig'
+$ java -jar build/libs/objc2swift-1.0.jar sample/sample.h -t
 ```
 
-Run the TestRig with an input file:
+input:
 
 ```
-$ cd build/classes/main
-$ grun ObjC translation_unit ../../../sample/sample.h -gui
+@interface A : NSObject
+
+@end
 ```
 
-![ss1.png](doc/ss1.png)
+output:
 
-See [Getting Started with ANTLR v4](https://theantlrguy.atlassian.net/wiki/display/ANTLR4/Getting+Started+with+ANTLR+v4) for more detail.
+```
+/* Hello Swift, Goodbye Obj-C.
+ * converted by 'objc2swift' https://github.com/yahoojapan/objc2swift
+ *
+ * source: sample/sample.h
+ * source-tree:
+ *  translation_unit: '@interface' - '@end'
+ *    external_declaration: '@interface' - '@end'
+ *      class_interface: '@interface' - '@end'
+ *        class_name: 'A'
+ *        superclass_name: 'NSObject'
+ */
+
+class A : NSObject {
+
+}
+```
 
 ## LICENSE
 This software is released under the MIT License, see [LICENSE.txt](LICENSE.txt).
