@@ -17,16 +17,39 @@ $ gradle build
 $ java -jar build/libs/objc2swift-1.0.jar sample/sample.h 
 ```
 
+With the input Obj-C code:
+
+```
+@interface A : NSObject
+
+@end
+```
+
+you'll get the Swift code as below:
+
 ```
 class A : NSObject {
+
 }
 ```
 
-Cool! You got the auto-converted Swift code.
-
 ## Developer's Guide
 
-### 1. ANTLR v4 usage
+### 1. Project Setup
+
+Import Project from gradle build file:
+
+![ss2.png](doc/ss2.png)
+
+Create new Run Configuration as below:
+
+![ss3.png](doc/ss3.png)
+
+### 2. Project Structure
+
+coming soon...
+
+### 3. Visualizing Parse Tree
 
 Install ANTLR v4, set classpath and aliases:
 
@@ -51,22 +74,6 @@ $ grun ObjC translation_unit ../../../sample/sample.h -gui
 ![ss1.png](doc/ss1.png)
 
 See [Getting Started with ANTLR v4](https://theantlrguy.atlassian.net/wiki/display/ANTLR4/Getting+Started+with+ANTLR+v4) for more detail.
-
-### 2. Project Setup
-
-Import Project from gradle build file:
-
-![ss2.png](doc/ss2.png)
-
-Create new Run Configuration as below:
-
-![ss3.png](doc/ss3.png)
-
-and Run!
-
-### 3. Project Structure
-
-coming soon...
 
 ## LICENSE
 This software is released under the MIT License, see [LICENSE.txt](LICENSE.txt).
