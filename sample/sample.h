@@ -9,3 +9,7 @@
 - (int)retIntMethod1;
 
 @end
+
+@interface A(Category)<Protocol3>
+
+@end

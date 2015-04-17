@@ -21,3 +21,10 @@ dependencies {
     compile 'org.antlr:antlr4-runtime:4.5'
     compile 'org.antlr:ST4:4.0.8'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'Main'
+    }
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}

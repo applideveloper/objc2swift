@@ -74,8 +74,38 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
       sb.append(ctx.superclass_name().getText())
     }
     if(ctx.protocol_reference_list() != null) {
-      val protocols = ctx.protocol_reference_list().protocol_list().children.filter(_.isInstanceOf[ObjCParser.Protocol_nameContext])
-      sb.append(protocols.foldLeft("")(_ + ", " + _.getText))
+      val protocols = ctx.protocol_reference_list()
+        .protocol_list()
+        .children
+        .filter(_.isInstanceOf[ObjCParser.Protocol_nameContext])
+        .map(_.getText)
+      sb.append(", " + protocols.mkString(", "))
+    }
+
+    sb.append(" {\n")
+    if(ctx.interface_declaration_list() != null) {
+      val result = visit(ctx.interface_declaration_list())
+      if(result != null) {
+        sb.append(result)
+        sb.append("\n")
+      }
+    }
+    sb.append("}\n\n")
+
+    return sb.toString()
+  }
+
+  override def visitCategory_interface(ctx: Category_interfaceContext): String = {
+    val sb = new StringBuilder()
+    sb.append("extension " + ctx.class_name.getText())
+
+    if(ctx.protocol_reference_list() != null) {
+      val protocols = ctx.protocol_reference_list()
+        .protocol_list()
+        .children
+        .filter(_.isInstanceOf[ObjCParser.Protocol_nameContext])
+        .map(_.getText)
+      sb.append(" : " + protocols.mkString(", "))
     }
 
     sb.append(" {\n")
