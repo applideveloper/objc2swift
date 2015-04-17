@@ -1,11 +1,9 @@
-@interface A : NSObject<Protocol1, Protocol2>
+@interface MyClass : NSObject <SomeProtocol>
 
 @property(nonatomic, strong) IBOutlet UILabel *label;
 
 - (void)hoge;
-
-@end
-
-@interface A(Category)<Protocol3>
+- (void)hogeWithInt:(int)n;
+- (void)hogeWithInt:(int)n string:(NSString *)str;
 
 @end
