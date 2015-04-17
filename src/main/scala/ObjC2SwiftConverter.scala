@@ -15,7 +15,7 @@ import collection.JavaConversions._
 
 class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends ObjCBaseVisitor[String] {
   val root = _root
-  val properties = new ParseTreeProperty[String]()
+  val visited = new ParseTreeProperty[Boolean]()
 
   def getResult: String = {
     visit(root)
@@ -41,8 +41,9 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
 
   def indentLevel(node: ParserRuleContext): Int = {
     node.depth() match {
-      case n if (n <= 2) => 0
-      case _ => 1
+      case n if (n < 4) => 0 // class
+      case n if (n < 8) => 1 // method
+      case _ => 2
     }
   }
 
@@ -93,6 +94,35 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
     })
   }
 
+  def findCorrespondingClassImplementation(classCtx: ObjCParser.Class_interfaceContext): Class_implementationContext = {
+    val list = root.external_declaration
+    for (extDclCtx <- list) {
+      for (ctx <- extDclCtx.children if ctx.isInstanceOf[ObjCParser.Class_implementationContext]) {
+        val implCtx = ctx.asInstanceOf[ObjCParser.Class_implementationContext]
+        if(implCtx.class_name.getText == classCtx.class_name.getText)
+          return implCtx
+      }
+    }
+
+    null
+  }
+
+  def findCorrespondingMethodDefinition(declCtx: ObjCParser.Instance_method_declarationContext): ObjCParser.Instance_method_definitionContext = {
+    val classCtx = declCtx.parent.parent.asInstanceOf[ObjCParser.Class_interfaceContext]
+    val implCtx = findCorrespondingClassImplementation(classCtx)
+    if(implCtx == null)
+      return null
+
+    for(ctx <- implCtx.implementation_definition_list.children if ctx.isInstanceOf[ObjCParser.Instance_method_definitionContext]) {
+      val defCtx = ctx.asInstanceOf[ObjCParser.Instance_method_definitionContext]
+      if(defCtx.method_definition.method_selector.getText == declCtx.method_declaration.method_selector.getText) {
+        return defCtx
+      }
+    }
+
+    null
+  }
+
   override def visitTranslation_unit(ctx: ObjCParser.Translation_unitContext): String = {
     concatChildResults(ctx, "\n")
   }
@@ -126,6 +156,16 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
         sb.append("\n")
       }
     }
+
+    val implCtx = findCorrespondingClassImplementation(ctx)
+    if(implCtx != null) {
+      val result = visit(implCtx.implementation_definition_list)
+      if(result != null) {
+        sb.append(result)
+        sb.append("\n")
+      }
+    }
+
     sb.append("}\n\n")
 
     sb.toString()
@@ -208,12 +248,43 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
 
     sb.append(" {\n")
 
-    //
-    // TODO: Implement method's body
-    //
-
+    val impl = findCorrespondingMethodDefinition(ctx)
+    if(impl != null) {
+      visited.put(impl, true)
+      sb.append(visit(impl.method_definition.compound_statement))
+    }
     sb.append(indent(ctx) + "}")
 
     sb.toString()
+  }
+
+
+  override def visitClass_implementation(ctx: Class_implementationContext): String = {
+    concatChildResults(ctx, "\n")
+  }
+
+  override def visitImplementation_definition_list(ctx: Implementation_definition_listContext): String = {
+    concatChildResults(ctx, "\n")
+  }
+
+  override def visitInstance_method_definition(ctx: ObjCParser.Instance_method_definitionContext): String = {
+    if(visited.get(ctx))
+      return null
+
+    // TODO Print Method Definition
+
+    visit(ctx.method_definition.compound_statement)
+  }
+
+  override def visitCompound_statement(ctx: Compound_statementContext): String = {
+    concatChildResults(ctx, "\n")
+  }
+
+  override def visitStatement_list(ctx: Statement_listContext): String = {
+    concatChildResults(ctx, "\n")
+  }
+
+  override def visitStatement(ctx: StatementContext): String = {
+    indent(ctx) + "// statement" // TODO
   }
 }
