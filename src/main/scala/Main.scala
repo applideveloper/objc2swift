@@ -32,8 +32,8 @@ object Main {
     val parser = new ObjCParser(tokens)
 
     val root = parser.translation_unit()
-    val converter = new ObjC2SwiftConverter()
-    val result = converter.visit(root)
+    val converter = new ObjC2SwiftConverter(root)
+    val result = converter.getResult()
 
     output(result, files, options, parser, root)
   }
@@ -48,15 +48,13 @@ object Main {
       println(" * source-tree:")
       (new ParseTreeWalker()).walk(new ObjCBaseListener() {
         override def enterEveryRule(ctx: ParserRuleContext): Unit = {
-          print(" *" + "  " * ctx.depth)
+          print(" * " + (ctx.depth - 1) + "  " * ctx.depth)
           print(parser.getRuleNames()(ctx.getRuleIndex) + ": ")
           print("'" + ctx.getStart.getText.replace("\n\r\t", " ") + "'")
           if(ctx.getStart != ctx.getStop){
             print(" - " + "'" + ctx.getStop.getText.replace("\n\r\t", " ") + "'")
           }
           println()
-          // 		return "[@"+getTokenIndex()+","+start+":"+stop+"='"+txt+"',<"+type+">"+channelStr+","+line+":"+getCharPositionInLine()+"]";
-
         }
       }, root)
     }

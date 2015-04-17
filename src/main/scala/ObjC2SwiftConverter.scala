@@ -13,8 +13,13 @@ import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.{ParseTree, ParseTreeProperty}
 import collection.JavaConversions._
 
-class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
+class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends ObjCBaseVisitor[String] {
+  val root = _root
   val properties = new ParseTreeProperty[String]()
+
+  def getResult(): String = {
+    return visit(root)
+  }
 
   def concatChildResults(node: ParseTree, glue: String): String = {
     val children = for(i <- 0 until node.getChildCount) yield node.getChild(i)
@@ -32,6 +37,17 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
         sb.append(r)
     }
     return sb.toString
+  }
+
+  def indentLevel(node: ParserRuleContext): Int = {
+    return node.depth() match {
+      case n if (n <= 2) => 0
+      case _ => 1
+    }
+  }
+
+  def indent(node: ParserRuleContext): String = {
+    return "    " * indentLevel(node)
   }
 
   //
@@ -149,7 +165,7 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
 
     val sb = new StringBuilder()
 
-    sb.append("    func ")
+    sb.append(indent(ctx) + "func ")
 
     val method_declaration_ctx: ObjCParser.Method_declarationContext = ctx.method_declaration()
 
@@ -196,10 +212,8 @@ class ObjC2SwiftConverter extends ObjCBaseVisitor[String] {
     // TODO: Implement method's body
     //
 
-    sb.append("    }")
+    sb.append(indent(ctx) + "}")
 
     sb.toString()
-
   }
-
 }
