@@ -31,14 +31,14 @@ object Main {
     val tokens = new CommonTokenStream(lexer)
     val parser = new ObjCParser(tokens)
 
-    val root = parser.translation_unit()
+    val root = parser.translation_unit
     val converter = new ObjC2SwiftConverter(root)
-    val result = converter.getResult()
+    val result = converter.getResult
 
     output(result, files, options, parser, root)
   }
 
-  def output(result: String, files: Array[String], options: Map[String, Boolean], parser: Parser, root: ParserRuleContext) {
+  def output(result: String, files: Array[String], options: Map[String, Any], parser: Parser, root: ParserRuleContext) {
     println("/* Hello Swift, Goodbye Obj-C.")
     println(" * converted by 'objc2swift' https://github.com/yahoojapan/objc2swift")
     println(" *")
@@ -46,7 +46,7 @@ object Main {
 
     if(options("tree") == true) {
       println(" * source-tree:")
-      (new ParseTreeWalker()).walk(new ObjCBaseListener() {
+      new ParseTreeWalker().walk(new ObjCBaseListener() {
         override def enterEveryRule(ctx: ParserRuleContext): Unit = {
           print(" * " + (ctx.depth - 1) + "  " * ctx.depth)
           print(parser.getRuleNames()(ctx.getRuleIndex) + ": ")
@@ -61,7 +61,6 @@ object Main {
 
     println(" */")
     println()
-
     println(result)
   }
 }

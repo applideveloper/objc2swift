@@ -17,13 +17,13 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
   val root = _root
   val properties = new ParseTreeProperty[String]()
 
-  def getResult(): String = {
-    return visit(root)
+  def getResult: String = {
+    visit(root)
   }
 
   def concatChildResults(node: ParseTree, glue: String): String = {
     val children = for(i <- 0 until node.getChildCount) yield node.getChild(i)
-    return concatResults(children.toList, glue)
+    concatResults(children.toList, glue)
   }
 
   def concatResults(nodes: List[ParseTree], glue: String): String = {
@@ -36,18 +36,18 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
       if(r != null)
         sb.append(r)
     }
-    return sb.toString
+    sb.toString
   }
 
   def indentLevel(node: ParserRuleContext): Int = {
-    return node.depth() match {
+    node.depth() match {
       case n if (n <= 2) => 0
       case _ => 1
     }
   }
 
   def indent(node: ParserRuleContext): String = {
-    return "    " * indentLevel(node)
+    "    " * indentLevel(node)
   }
 
   //
@@ -94,20 +94,20 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
   }
 
   override def visitTranslation_unit(ctx: ObjCParser.Translation_unitContext): String = {
-    return concatChildResults(ctx, "\n")
+    concatChildResults(ctx, "\n")
   }
 
   override def visitExternal_declaration(ctx: ObjCParser.External_declarationContext): String = {
-    return concatChildResults(ctx, "\n")
+    concatChildResults(ctx, "\n")
   }
 
   override def visitClass_interface(ctx: ObjCParser.Class_interfaceContext): String = {
     val sb = new StringBuilder()
-    sb.append("class " + ctx.class_name.getText())
+    sb.append("class " + ctx.class_name.getText)
 
     if(ctx.superclass_name() != null) {
       sb.append(" : ")
-      sb.append(ctx.superclass_name().getText())
+      sb.append(ctx.superclass_name().getText)
     }
     if(ctx.protocol_reference_list() != null) {
       val protocols = ctx.protocol_reference_list()
@@ -128,12 +128,12 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
     }
     sb.append("}\n\n")
 
-    return sb.toString()
+    sb.toString()
   }
 
   override def visitCategory_interface(ctx: Category_interfaceContext): String = {
     val sb = new StringBuilder()
-    sb.append("extension " + ctx.class_name.getText())
+    sb.append("extension " + ctx.class_name.getText)
 
     if(ctx.protocol_reference_list() != null) {
       val protocols = ctx.protocol_reference_list()
@@ -154,7 +154,7 @@ class ObjC2SwiftConverter(_root: ObjCParser.Translation_unitContext) extends Obj
     }
     sb.append("}")
 
-    return sb.toString()
+    sb.toString()
   }
 
   override def visitInterface_declaration_list(ctx: ObjCParser.Interface_declaration_listContext): String = {
